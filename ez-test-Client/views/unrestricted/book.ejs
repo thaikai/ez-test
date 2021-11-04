@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- *** PUBLIC HEAD *** -->
+    <%- include('./layout/includes/head.ejs') %>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- *** PUBLIC NAVIGATION *** -->
+    <%- include('./layout/includes/nav.ejs') %>
+
+    <!--  FIND INPUT -->
+    <div class="section-3">
+        <div class="std-container w-container">
+            <div class="div-block-58">
+                <div class="div-block-59">
+                    <h2 class="heading center">Let's Find a Location Near You</h2>
+                    <p class="instruction">Enter your five-digit Zip Code below to get started.</p>
+                </div>
+
+                <!-- enter zipcode to find nearest locations -->
+                <form id="find-locations" class="get-locations">
+                    <input type="text" class="text-field w-input" placeholder="Ex: 98109" id="zipcode-field" />
+                    <button type="button" class="get-locations-button w-button">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- show any messages that come back with authentication -->
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+    
+    <!-- MODAL POP-UP -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            
+            <!-- MODAL CONTENT -->
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Schedule Appointment</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <!-- APPOINTMENT DETAILS -->
+                    <p id="modal-step">Step — 1</p>
+                    <p class="instruction">Confirm Appointment Details</p>
+                    <div class="appointment-details">
+                        <p class="test-center-name" id="modal-detail-location-name">address</p>
+                        <p class="test-center-address" id="modal-detail-location-address">address</p>
+                        <p id="modal-detail-date-time">DateTime: </p>
+                    </div>
+
+                    <!-- LOGIN OR SIGNUP -->
+                    <p id="modal-step">Step — 2</p>
+                    <p class="instruction">Connect an Account</p>
+                                        
+                    <ul class="tab-group">
+                        <li class="tab active" id="tab-group-text"><a href="#signup">Sign Up</a></li>
+                        <li class="tab" id="tab-group-text"><a href="#login">Log In</a></li>
+                    </ul>
+
+                    <div class="schedule-form">    
+                        <div class="tab-content">
+                            <div id="signup">
+                            
+                                <!-- CREATE APPOINTMENT AND SIGN UP -->
+                                <form action="/signup" method="post">
+                                    <div class="field-wrap">
+                                        <label class="modal-input-label">First</label>
+                                        <input class="modal-input-field" type="text" name="firstName" required autocomplete="off" />
+                                    </div>
+                                    <div class="field-wrap">
+                                        <label class="modal-input-label">Last</label>
+                                        <input class="modal-input-field" type="text" name="lastName" required autocomplete="off" />
+                                    </div>
+
+                                    <div class="field-wrap">
+                                        <label class="modal-input-label">
+                                            Email Address
+                                        </label>
+                                        <input class="modal-input-field" type="email" name="username" required autocomplete="off" />
+                                    </div>
+                                    <div class="field-wrap">
+                                        <label class="modal-input-label">
+                                            Password
+                                        </label>
+                                        <input class="modal-input-field" type="password" name="password" required autocomplete="off"/>
+                                    </div>
+
+                                    <input type="hidden" name="testCenterID"    value = "something" />
+                                    <input type="hidden" name="dateTime"        value = "something" />
+                                    
+                                    <div style="display: flex; width: 100%; flex-direction: row-reverse">
+                                        <button type="submit" class="submit-button">Book Appointment</button>
+                                    </div>
+                                    
+                                </form>
+                            </div>
+    
+                            <!-- CREATE APPOINTMENT AND LOGIN -->
+                            <div id="login">
+                                <form action="/appointment-login" method="post">
+                                    <div class="field-wrap">
+                                        <label class="modal-input-label">
+                                            Email Address
+                                        </label>
+                                        <input class="modal-input-field" type="email" name="username" required autocomplete="off" />
+                                    </div>
+                                    <div class="field-wrap">
+                                        <label class="modal-input-label">
+                                            Password
+                                        </label>
+                                        <input class="modal-input-field" type="password" name="password" required autocomplete="off"/>
+                                    </div>
+                                    
+                                    <input type="hidden" name="testCenterID"    value = "" />
+                                    <input type="hidden" name="dateTime"        value = "" />
+                                    
+                                    <div style="display: flex; width: 100%; flex-direction: row-reverse">
+                                        <button type="submit" class="submit-button">Book Appointment</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div> <!-- tab-content -->
+                    </div> <!-- /form -->
+                </div> <!-- modal-body -->
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- uncomment for quick access to modal, 
+    without having to go through zipcode appt gets -->
+    <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
+    <!-- PUBLIC FOOTER -->
+    <%- include('./layout/includes/footer.ejs') %>
+
+    <!-- SIGN-UP/LOGIN FORM CONTROL -->
+    <script>
+        $('.tab a').on('click', function (e) {
+            e.preventDefault();
+            $(this).parent().addClass('active');
+            $(this).parent().siblings().removeClass('active');
+            target = $(this).attr('href');
+            $('.tab-content > div').not(target).hide();
+            $(target).fadeIn(600);
+        });
+    </script>
+
+    <!-- VIEW APPOINTMENTS (DYNAMICALLY LOADED) BTN CONTROLLER -->
+    <script>
+        var allPanels = $("dd").hide();
+        $(document.body).on('click', '.view-appointments-button', function () {
+            allPanels = $("dd").hide();
+            allPanels.slideUp();
+            $(this).parent().next().slideDown();
+            return false;
+        });
+    </script>
+    
+    <!-- PAGE CONTROLLER -->
+    <script src="controllers/book.js" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/1.26.0/luxon.min.js"></script>
+
+</body>
+
+</html>

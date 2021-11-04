@@ -1,0 +1,26 @@
+.top-nav
+  .top-nav-left
+    a.logo-link.w-inline-block(href='#')
+      h3.logo-text EZ-Test
+    .horiztontal-divider-line
+    .org-name-wrapper
+      .org-name-text Swedish Hospital
+  .top-nav-right
+    .top-nav-right-left
+      .user-name-text !{user.username}
+      .user-role-text !{user.role}
+    .account-drop-down.w-dropdown(data-delay='200')
+      .drop-down-toggle-field.w-dropdown-toggle
+        a.user-profile-image.w-inline-block(href='#')
+      nav.dropdown-list-3.w-dropdown-list
+        .div-block-172
+          a.nav-link-wrapper.w-inline-block(href='#')
+            img.nav-link-icon(src='https://uploads-ssl.webflow.com/606d02611887abc3782da5dc/606d34795d8bee7249c1e8a7_User%20Profile%205.png' alt='')
+            .nav-link-text My Profile
+          a.nav-link-wrapper.w-inline-block(href='#')
+            img.nav-link-icon(src='https://uploads-ssl.webflow.com/606d02611887abc3782da5dc/606d34795d8bee1a90c1e8b3_settings.png' alt='')
+            .nav-link-text Account Settings
+          .div-block-174
+          a.nav-link-wrapper.w-inline-block(href='#')
+            img.image-50(src='https://uploads-ssl.webflow.com/606d02611887abc3782da5dc/606d34795d8bee6638c1e8ab_exit.png' alt='')
+            .nav-link-text Sign Out

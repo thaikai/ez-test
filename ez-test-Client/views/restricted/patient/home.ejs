@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+    <!-- *** PUBLIC HEAD *** -->
+    <%- include('partials/head.ejs') %>
+    
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <!-- <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet"> -->
+
+</head>
+<body>
+  
+  <!-- *** PUBLIC NAVIGATION *** -->
+  <%- include('partials/nav.ejs') %>
+
+  <section class="page-wrapper">
+    <div class="std-container">
+      <div class="fmioerf">
+        <div class="left-grid-div">
+          <div>
+
+            <h2 class="heading">Hi, <%= user.firstName.replace(/\w/, c => c.toUpperCase()) %>!</h2>
+            <p class="paragraph">Thanks for dropping by. Scroll down to see your most recent test results.</p>
+
+            <div class="div-block-56" style="margin-bottom: 50px">
+              <div class="div-block-55" style="color: #fff; font-size: 20px; font-weight:900">&#x21af;</div>
+            </div>
+          
+          </div>
+          
+          <!-- UPCOMING APPOINTMENTS -->
+          <div class="">
+            <div class="ok" style="align-items: left;">
+              <div class="coming-pill" style="display:block">
+                <div class="text-block-3">
+                  Upcoming Appointments
+                </div>
+              </div>
+            </div>
+            <div class="div-block-54">
+
+              <!-- <% console.log(appts.upcoming[1]); %> -->
+
+              <% if(appts.upcoming.length > 0) { %>
+                <% for (var i = 0; i < appts.upcoming.length;  i++ ) { %>
+                  <div class="appointment-summary-wrapper">
+                    <h3 class="test-center-name"> <%= appts.upcoming[i].testCenter %> </h3>
+                    <p class="paragraph-2" style="width: auto; display: inline; color: #606060; font-weight: thinner"> <%= appts.upcoming[i].address %> </p>
+                    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: baseline">
+                      <p class="paragraph-2" style="width: auto; display: inline"> <%= appts.upcoming[i].dateTime %> </p>
+                      <div>
+                        <span class="result-left">Result</span><span class="result-right"> <%= appts.upcoming[i].result %> </span>  
+                      </div>  
+                    </div>
+                  </div>
+                <% } %>
+              <% } else { %>
+
+                <div class="appointment-summary-wrapper">
+                  <p class="paragraph">You don't have any upcoming appointments to display.</p>
+                </div>
+
+              <% } %>
+  
+            </div>
+          </div>
+
+          <!-- PREV APPOINTMENTS -->
+          <div class="ok" style="align-items: left;">
+            <div class="prev-pill" style="display:block">
+              <div class="text-block-3">
+                Previous Appointments
+              </div>
+            </div>
+          </div>
+          <div class="div-block-54">
+
+            <% if(appts.previous.length > 0) { %>
+              <% for (var i = 0; i < appts.previous.length;  i++ ) { %>
+                <div class="appointment-summary-wrapper">
+                  <h3 class="test-center-name"> <%= appts.previous[i].testCenter %> </h3>
+                  <p class="paragraph-2" style="width: auto; display: inline; color: #606060; font-weight: thinner"> <%= appts.previous[i].address %> </p>
+                  <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: baseline">
+                    <p class="paragraph-2" style="width: auto; display: inline"> <%= appts.previous[i].dateTime %> </p>
+                    <div>
+                      <span class="result-left">Result</span><span class="result-right"> <%= appts.previous[i].result %> </span>  
+                    </div>  
+                  </div>
+                </div>
+              <% } %>
+            <% } else { %>
+
+              <div class="appointment-summary-wrapper">
+                <p class="paragraph">You don't have any previous appointments to display.</p>
+              </div>
+
+            <% } %>
+
+          </div>
+        </div>
+        <div class="right-grid-div">
+          <div class="right-child">
+
+            <!-- **************** -->
+            <!-- ACCOUNT SETTINGS -->
+            <!-- **************** -->
+            <div class="account-settings-div">
+              <div style="display: flex; flex-direction:row; align-items: baseline; margin-bottom: 30px">
+                <div style="display: flex; color: #1f2c3d; font-size: 30px; font-height: 30px; padding: 0px; margin: 0px; margin-right: 10px">
+                  ⚙
+                </div>
+                <p id="modal-step" style="color: #1f2c3d; display: flex; align-self: center; padding: 0px; padding-top: 5px; margin: 0px">settings</p>
+              </div>
+              
+              <p class="instruction">Use the form below to modify your account's settings.</p><!-- name -->
+              <form action="/login" method="post">
+                <div class="field-wrap-triple">
+                  <label class="modal-input-label">Name</label> 
+                  <input class="modal-input-field-straight" type="text" name="firstName" required="" autocomplete="off" value='<%= user.firstName.replace(/\w/, c => c.toUpperCase()) %>'> 
+                  <input class="modal-input-field" type="text" name="lastName" required="" autocomplete="off" value='<%= user.lastName.replace(/\w/, c => c.toUpperCase()) %>'>
+                </div>
+              </form><!-- email -->
+              <form action="/login" method="post">
+                <div class="field-wrap">
+                  <label class="modal-input-label">Email</label> <input class="modal-input-field" type="email" name="username" required="" autocomplete="off" value='<%= user.username %>'>
+                </div>
+              </form><!-- password -->
+              <form action="/login" method="post">
+                <div class="field-wrap">
+                  <label class="modal-input-label">Password</label> <input class="modal-input-field" type="password" name="password" required="" autocomplete="off">
+                </div>
+              </form>
+              <hr>
+              <!-- break -->
+              <div style="display: flex; width: 100%; flex-direction: row; align-items: baseline; justify-content: space-between">
+                <a href="/logout" class="link-2">Log out</a>
+                <button type="submit" class="submit-button">Update ↻</button>
+              </div>
+            </div> <!-- end account settings div -->
+          </div> <!-- end right child -->
+        </div><!-- end right -->
+      </div> <!-- end wrapper -->
+    </div>
+  </section>
+  
+  <!-- *** PUBLIC FOOTER *** -->
+  <%- include('partials/footer.ejs') %>
+
+  <script src="controllers/patient.js" type="module"></script>
+
+</body>
+</html>

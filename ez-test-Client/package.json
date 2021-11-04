@@ -1,0 +1,40 @@
+{
+  "name": "ez-test-client",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "okay": "es-dev-server --app-index node ./bin/www --node-resolve --watch --open"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcrypt-nodejs": "^0.0.3",
+    "body-parser": "^1.18.3",
+    "bootstrap": "^4.6.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
+    "ejs-lint": "^1.2.0",
+    "express": "~4.16.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-partials": "^0.3.0",
+    "express-session": "^1.17.1",
+    "geolib": "^3.3.1",
+    "http-errors": "~1.6.3",
+    "jquery": "^3.6.0",
+    "moment": "^2.29.1",
+    "morgan": "~1.9.1",
+    "mysql": "^2.18.1",
+    "node-geocoder": "^3.27.0",
+    "normalize.css": "^8.0.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "pug": "^3.0.2",
+    "scss": "^0.2.4"
+  },
+  "devDependencies": {
+    "es-dev-server": "^2.1.0"
+  }
+}

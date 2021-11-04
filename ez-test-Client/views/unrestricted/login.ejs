@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- *** PUBLIC HEAD *** -->
+    <%- include('./layout/includes/head.ejs') %>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    
+</head>
+
+<body>
+
+    <!-- *** PUBLIC NAVIGATION *** -->
+    <%- include('./layout/includes/nav.ejs') %>
+
+    <div class="section-3">
+
+    <div class="container">
+        <div class="col-sm-6 col-sm-offset-3">
+            <!-- <h1><span class="fa fa-sign-in"></span> Login</h1> -->
+
+            <!-- show any messages that come back with authentication -->
+            <% if (message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %></div>
+            <% } %>
+
+            <div class="div-block-59">
+                <h2 class="heading center">Welcome Back</h2>
+                <p class="instruction">Let's get you signed in.</p>
+            </div>
+
+            <div id="login">
+                <form action="/login" method="post">
+                    <div class="field-wrap">
+                        <label class="modal-input-label">
+                            Email
+                        </label>
+                        <input class="modal-input-field" type="email" name="username" required autocomplete="off" />
+                    </div>
+                    <div class="field-wrap">
+                        <label class="modal-input-label">
+                            Password
+                        </label>
+                        <input class="modal-input-field" type="password" name="password" required autocomplete="off"/>
+                    </div>
+
+                    <hr>
+                    
+                    <div style="display: flex; width: 100%; flex-direction: row; align-items: baseline; justify-content: space-between">
+                        <p class="instruction" style="margin: 0px">Need to get tested? <a href="/book">Click Here.</a></p>
+                        <button type="submit" class="submit-button">Login &#x2192;</button>
+                    </div>
+
+                </form>
+            </div>
+
+
+
+        </div>
+    </div>
+    </div>
+    <!-- *** PUBLIC FOOTER *** -->
+    <%- include('./layout/includes/footer.ejs') %>
+        
+    <script src="controllers/book.js" type="module"></script>
+
+</body>
+</html>
